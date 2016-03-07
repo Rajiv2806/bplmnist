@@ -1,0 +1,176 @@
+---
+title: "Bayesian Program Learning with MNIST Data"
+author: "Aimee Barciauskas & Miquel Torrens"
+date: "March 7, 2016"
+output: pdf_document
+---
+
+# Usage
+
+```{r}
+devtools::install_github("abarciauskas-bgse/bplmnist")
+```
+
+# Bayesian Programming Learning on MNIST Dataset
+
+The MNIST dataset of hand-drawn integers is comparable to the omniglot dataset of hand-drawn alphabetic characters in that it includes many examples with a high degree of variation. It is the variation across two-dimensions which makes the classification difficult. More explicitly, two vectors of a long series of pixels identifying the same character are very likely to be completely distinct.
+
+For the MNIST dataset, we have simulated the process of the Bayesian Program Learning for the omniglot dataset for predicting new integers using a single example from each class 0-9.
+
+One challenge in simulating this process directly is that the BPL paper used motor data from Amazon Turk: to create the program they used stroke trajectory data, e.g. each hand-drawn image came with trajectory data which informed where the strokes for each character were started and facilitated differentiation of distinct strokes and their relations to each other.
+
+The MNIST dataset do not come with motor data so in what follows a "trajectory" is simulated by a directed-path-generating algorithm that relies highly on heuristics of how characters are drawn. The process here is also simplified by relying  entirely on the directed paths generated from the algorithm and has not incorporated the relations between strokes as part of assessing the posterior probability.
+
+## The process is as follows:
+
+**1. Create thinned image:** The original image is whittled down to a "one-pixel" skeleton
+**2. Generate directed path:** Simulate trajectory using a heuristics-motivated path generating algorithm. [ADD ME: Describe how this works]
+
+In theory, the directed path enables both new integer generation and integer prediction on test examples. Here we focus on the latter because it is cooler.
+
+## 1. Creating the thinned images
+
+```{r}
+digits <- load.mnist()
+
+# Select a random subset of digits
+rand.idcs <- sample(1:nrow(digits),100)
+# special.set<-c(1765,2183,3251,1843,5043,2380,2520,5291,486,5079)
+# rand.idcs <- c(special.set, rand.idcs)
+
+for (i in 1:10) {
+  digit <- digits[rand.idcs[i],]
+  label <- as.numeric(digit[1])
+  features <- as.numeric(digit[2:ncol(digit)])
+  # displaying the original digit
+  displayDigit(features, label, newDevice = FALSE)
+  Sys.sleep(0.5)
+}
+
+thinned.ints <- all.thinned.ints(digits[rand.idcs,])
+```
+
+Make sure things worked:
+
+```{r}
+for (i in 1:length(rand.idcs)) {
+  plot(thinned.ints[[i]]$points, main = paste0('Hey, this is a: ', thinned.ints[[i]]$label), pch = 19, ylim = c(-16,0), xlim = c(0,16))
+  Sys.sleep(0.5)
+}
+```
+
+With the thinned images, we generate a training set of the distinct set of 10 distinct integers.
+
+```{r}
+# returns first 0-9 distinct digits
+training.collection <- collect.training.set(thinned.ints)
+train.set <- training.collection$train.set
+train.idcs <- training.collection$train.idcs
+```
+
+And test set:
+
+```{r}
+# Collect the test set
+test.idcs <- setdiff(1:length(rand.idcs), train.idcs)
+test.set <- thinned.ints[test.idcs]
+```
+
+"Train" on the training set - e.g. generate paths
+
+```{r}
+train.objects <- list()
+for (i in 0:9) {
+  digit <- train.set[[which(sapply(train.set, function(dig) { dig$label == i }))]]
+  train.objects[[i+1]] <- train.digit(digit)#, animation = TRUE)
+}
+```
+
+# Prediction
+
+```{r}
+# ASSUMPTION: Normally distributed steps, strokes and changes in direction
+total.steps.sd <- sd(sapply(train.objects, function(obj) { obj$total.steps }))
+num.real.strokes.sd <- sd(sapply(train.objects, function(obj) { obj$num.real.strokes }))
+changes.sd <- sd(sapply(train.objects, function(obj) { obj$changes.in.direction }))
+
+# create distribution of first major steps
+# 
+first.steps <- rep(0, 8)
+for (i in 1:8) {
+  first.steps[i] <- sum(sapply(train.objects, function(obj) {
+    fs <- obj$first.major.step
+    ifelse(is.na(fs), FALSE, fs == i)
+  }))
+}
+first.steps.dist <- first.steps/10
+
+# test objects
+errors <- 0
+for (i in 1:length(test.set)) {
+  test.digit <- test.set[[i]]
+  estimate <- train.digit(test.digit)
+
+  # compare our test object with our training objects: e.g. predict the integer which has the most likely distribution of steps for the longest stroke, weighted by the difference it the length of the first stroke and weighted by the total number of strokes
+  res <- lapply(train.objects, function(train.obj) {
+    step.prob <- estimate$step.probs%*%train.obj$step.probs
+    # probability given distribution of total steps for training object
+    length.prob <- dnorm((train.obj$total.steps - estimate$total.steps), mean = 0, sd = total.steps.sd)
+    strokes.prob <- dnorm((train.obj$num.real.strokes - estimate$num.real.strokes), mean = 0, sd = num.real.strokes.sd)
+    changes.prob <- dnorm((train.obj$changes.in.direction - estimate$changes.in.direction), mean = 0, sd = changes.sd)
+    # if the first major step is the same, we want the probability of that major step given all the data 
+    first.major.step.prob <- if ((!is.na(estimate$first.major.step)) &&
+                                 (!is.na(train.obj$first.major.step)) &&
+                                 (train.obj$first.major.step == estimate$first.major.step)) {
+      first.steps.dist[estimate$first.major.step]
+    } else {
+      ifelse(is.na(estimate$first.major.step), 0.1, max(0.1*first.steps.dist[estimate$first.major.step], 0.1))
+    }
+    return(strokes.prob*first.major.step.prob*length.prob*changes.prob)
+  })
+  pred <- which.max(res)-1
+  actual <- test.digit$label
+  if (pred != actual) errors <- errors + 1
+}
+(accuracy <- 1-errors/length(test.set))
+```
+
+Compare with random selection
+
+```{r}
+(test.distribution <- matrix(append(c(0:9), rep(0,10)), nrow = 10, ncol = 2))
+for (idx in 1:length(test.set)) {
+  test.distribution[(test.set[[idx]]$label+1),2] <- test.distribution[(test.set[[idx]]$label+1),2] + 1
+}
+
+apriori.test.probs <- test.distribution[,2]/length(test.set)
+# do this 100 times to get average random accuracy
+ntests <- 100
+random.accuracies <- rep(0, ntests)
+for (iter in 1:ntests) {
+  random.draws <- which(rmultinom(length(test.set), size = 1, prob = apriori.test.probs) == 1, arr.ind = TRUE)[,1]
+
+  random.errors <- 0
+  for (i in 1:length(test.set)) {
+    if (test.set[[i]]$label != random.draws[i]) random.errors <- random.errors + 1
+  }
+  random.accuracies[iter] <- (random.accuracy <- 1 - random.errors/length(test.set))
+}
+mean(random.accuracies)
+```
+
+Better than random chance. :/
+
+Room for improvement:
+
+* compare with tangent distance prediction - Is there a potential for better prediction with single training set?
+* possible refinement of the program, including a determination of relationship between strokes. However it is the novice opinion of this data scientist that there is a lot of randomness in the MNIST dataset which makes it hard to predict with a single tranining set.
+
+Reources:
+
+* [Science Magazine: Human-level concept learning through probabilistic program induction](http://science.sciencemag.org/content/sci/350/6266/1332.full.pdf)
+* [BPL on github](https://github.com/brendenlake/BPL)
+* [Bayesian Programming on Github](https://en.wikipedia.org/wiki/Bayesian_programming)
+* [Full paper](http://science.sciencemag.org/content/sci/suppl/2015/12/09/350.6266.1332.DC1/Lake-SM.pdf)
+
+
