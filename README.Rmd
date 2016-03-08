@@ -8,7 +8,10 @@ output: pdf_document
 # Usage
 
 ```{r}
+if (!require('devtools')) install.packages('devtools')
 devtools::install_github("abarciauskas-bgse/bplmnist")
+library(bplmnist)
+
 ```
 
 # Bayesian Programming Learning on MNIST Dataset
@@ -35,8 +38,6 @@ digits <- load.mnist()
 
 # Select a random subset of digits
 rand.idcs <- sample(1:nrow(digits),100)
-# special.set<-c(1765,2183,3251,1843,5043,2380,2520,5291,486,5079)
-# rand.idcs <- c(special.set, rand.idcs)
 
 for (i in 1:10) {
   digit <- digits[rand.idcs[i],]
@@ -78,6 +79,8 @@ test.set <- thinned.ints[test.idcs]
 
 "Train" on the training set - e.g. generate paths
 
+[ADD ME]: gif
+
 ```{r}
 train.objects <- list()
 for (i in 0:9) {
@@ -87,6 +90,21 @@ for (i in 0:9) {
 ```
 
 # Prediction
+
+Apriori probabilities for test set:
+
+```{r}
+(test.distribution <- matrix(append(c(0:9), rep(0,10)), nrow = 10, ncol = 2))
+for (idx in 1:length(test.set)) {
+  test.distribution[(test.set[[idx]]$label+1),2] <- test.distribution[(test.set[[idx]]$label+1),2] + 1
+}
+
+apriori.test.probs <- test.distribution[,2]/length(test.set)
+
+# make sure we didn't do anything silly
+# TODO: add assertthat for this test
+sum(sapply(test.set, function(obj) { obj$label == 0}))/length(test.set) == apriori.test.probs[1]
+```
 
 ```{r}
 # ASSUMPTION: Normally distributed steps, strokes and changes in direction
@@ -126,7 +144,8 @@ for (i in 1:length(test.set)) {
     } else {
       ifelse(is.na(estimate$first.major.step), 0.1, max(0.1*first.steps.dist[estimate$first.major.step], 0.1))
     }
-    return(strokes.prob*first.major.step.prob*length.prob*changes.prob)
+    # all the likelihoods times the prior
+    return(strokes.prob*first.major.step.prob*length.prob*changes.prob*apriori.test.probs[train.obj$label+1])
   })
   pred <- which.max(res)-1
   actual <- test.digit$label
@@ -138,12 +157,6 @@ for (i in 1:length(test.set)) {
 Compare with random selection
 
 ```{r}
-(test.distribution <- matrix(append(c(0:9), rep(0,10)), nrow = 10, ncol = 2))
-for (idx in 1:length(test.set)) {
-  test.distribution[(test.set[[idx]]$label+1),2] <- test.distribution[(test.set[[idx]]$label+1),2] + 1
-}
-
-apriori.test.probs <- test.distribution[,2]/length(test.set)
 # do this 100 times to get average random accuracy
 ntests <- 100
 random.accuracies <- rep(0, ntests)
@@ -159,7 +172,7 @@ for (iter in 1:ntests) {
 mean(random.accuracies)
 ```
 
-Better than random chance. :/
+Better than random chance (acheived 34.44% with one set)
 
 Room for improvement:
 

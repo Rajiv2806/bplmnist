@@ -5,7 +5,7 @@
 \title{generatePaths
 Accepts a list of thinned ints (digit skeletons) and returns a list of thinned ints' characteristics (see value)}
 \usage{
-generatePaths(thinned.ints, animation = FALSE, sleep.time = 0.5)
+generatePaths(thinned.ints, animation = FALSE, sleep.time = 0.2)
 }
 \arguments{
 \item{thinned.ints}{}
