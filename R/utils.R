@@ -38,8 +38,8 @@ distance <- function(point1, point2) {
   sqrt((point2[1] - point1[1])**2 + (point2[2] - point1[2])**2)
 }
 
-calcDist <- function() {
-  .Call('calcDist', PACKAGE = 'bplmnist')
+calcDist <- function(m, x, p) {
+  .Call('calcDist', PACKAGE = 'bplmnist', m, x, p)
 }
 
 distances <- function(matrix) {
