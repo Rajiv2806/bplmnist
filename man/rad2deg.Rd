@@ -9,7 +9,13 @@ rad2deg(rad)
 \arguments{
 \item{rad}{}
 }
+\value{
+# coming soon
+}
 \description{
 Title
+}
+\examples{
+# coming soon
 }
 

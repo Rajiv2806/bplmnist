@@ -14,8 +14,14 @@ thin.points(current.point, white.pixels, animation = FALSE)
 
 \item{animation}{}
 }
+\value{
+# coming soon
+}
 \description{
 thin.points
 Takes a starting point and pixels and returns a thinned version / pixel skeleton
+}
+\examples{
+# coming soon
 }
 

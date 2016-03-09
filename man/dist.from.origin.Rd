@@ -9,7 +9,13 @@ dist.from.origin(points)
 \arguments{
 \item{points}{}
 }
+\value{
+# coming soon
+}
 \description{
 Title
+}
+\examples{
+# coming soon
 }
 

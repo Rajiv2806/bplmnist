@@ -24,4 +24,7 @@ List of each thinned int's characteristics as determined by the algorithm:
 generatePaths
 Accepts a list of thinned ints (digit skeletons) and returns a list of thinned ints' characteristics (see value)
 }
+\examples{
+# coming soon
+}
 

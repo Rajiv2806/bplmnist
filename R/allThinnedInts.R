@@ -8,7 +8,7 @@
 #' @return thinned digits, pixel "skeletons"
 #' @export
 #'
-#' @examples
+#' @examples # coming soon
 all.thinned.ints <- function(digits, limit = NA) {
   if (is.na(limit)) limit <- nrow(digits)
   all.thinned.ints <- list()

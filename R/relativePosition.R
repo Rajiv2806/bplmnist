@@ -6,7 +6,7 @@
 #' @return position 1-8 (where 1 is top left corner and increments are made in clockwise direction) of point2 relative to point1
 #' @export
 #'
-#' @examples
+#' @examples # coming soon
 relative.position <- function(point1, point2) {
   position <- NA
   if (all(point1-c(1,-1) == point2)) {

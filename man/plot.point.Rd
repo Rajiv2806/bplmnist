@@ -12,8 +12,14 @@ color the point on the plot with given color}
 
 \item{color}{defaults to cadetblue}
 }
+\value{
+# coming soon
+}
 \description{
 plot.point
 color the point on the plot with given color
+}
+\examples{
+# coming soon
 }
 

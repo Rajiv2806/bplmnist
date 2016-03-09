@@ -9,7 +9,13 @@ my.mode(x)
 \arguments{
 \item{x}{}
 }
+\value{
+# coming soon
+}
 \description{
 Title
+}
+\examples{
+# coming soon
 }
 

@@ -5,10 +5,10 @@
 #'
 #' @param digit 
 #'
-#' @return
+#' @return # coming soon
 #' @export
 #'
-#' @examples
+#' @examples # coming soon
 train.digit <- function(digit, animation = FALSE) {
   label <- digit$label
   # create the path

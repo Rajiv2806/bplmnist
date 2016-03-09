@@ -11,7 +11,7 @@
 #'   Used to make prediction on test sets.
 #' @export
 #'
-#' @examples
+#' @examples # coming soon
 generatePaths <- function(thinned.ints, animation = FALSE, sleep.time = 0.2) {
   for (idx in 1:length(thinned.ints)) {
     new.int <- thinned.ints[[idx]]

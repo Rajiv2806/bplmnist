@@ -11,7 +11,13 @@ neighbors.directions(point, points)
 
 \item{points}{}
 }
+\value{
+# coming soon
+}
 \description{
 Title
+}
+\examples{
+# coming soon
 }
 

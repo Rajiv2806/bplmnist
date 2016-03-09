@@ -11,7 +11,13 @@ angle(x, y)
 
 \item{y}{}
 }
+\value{
+# coming soon
+}
 \description{
 Title
+}
+\examples{
+# coming soon
 }
 

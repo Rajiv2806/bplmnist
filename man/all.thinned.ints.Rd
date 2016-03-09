@@ -21,4 +21,7 @@ all.thinned.ints
 Takes a list of MNIST digits, removes non-white pixels and
 calls thin.points,the thinning algorithm for creating a pixel "skeleton"
 }
+\examples{
+# coming soon
+}
 

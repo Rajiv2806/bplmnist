@@ -20,9 +20,15 @@ displayDigit(pixels, label, predictedLabel = NULL, saveImage = FALSE,
 
 \item{newDevice}{}
 }
+\value{
+# coming soon
+}
 \description{
 displayDigit
 Author: Hrvoje Stojic
 Prints a 16x16 MNIST digit using pixel values
+}
+\examples{
+# coming soon
 }
 

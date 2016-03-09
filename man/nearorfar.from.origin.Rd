@@ -11,7 +11,13 @@ nearorfar.from.origin(points, relativity = "nearest")
 
 \item{relativity}{}
 }
+\value{
+# coming soon
+}
 \description{
 Title
+}
+\examples{
+# coming soon
 }
 

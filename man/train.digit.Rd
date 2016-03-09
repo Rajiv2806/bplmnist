@@ -12,10 +12,16 @@ train.digit(digit, animation = FALSE)
 \arguments{
 \item{digit}{}
 }
+\value{
+# coming soon
+}
 \description{
 train.digit
 takes a thinned digit, generates a directed path for that digit
   and returns a vector of probabilities for each step type, the number of steps in the 
   and the label of the digit
+}
+\examples{
+# coming soon
 }
 

@@ -13,7 +13,13 @@ nearest.point(point, points, order = 1)
 
 \item{order}{}
 }
+\value{
+# coming soon
+}
 \description{
 Title
+}
+\examples{
+# coming soon
 }
 

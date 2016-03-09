@@ -5,10 +5,10 @@
 #' @param white.pixels 
 #' @param animation 
 #'
-#' @return
+#' @return # coming soon
 #' @export
 #'
-#' @examples
+#' @examples # coming soon
 thin.points <- function(current.point, white.pixels, animation = FALSE) {
   white.pixels.thinned <- white.pixels
   unvisited <- white.pixels

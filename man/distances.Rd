@@ -9,7 +9,13 @@ distances(matrix)
 \arguments{
 \item{matrix}{}
 }
+\value{
+# coming soon
+}
 \description{
 Title
+}
+\examples{
+# coming soon
 }
 

@@ -13,7 +13,13 @@ calcDist(m, x, p)
 
 \item{p}{}
 }
+\value{
+# coming soon
+}
 \description{
 Title
+}
+\examples{
+# coming soon
 }
 

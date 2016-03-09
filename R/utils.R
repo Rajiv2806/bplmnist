@@ -4,10 +4,10 @@
 #' @param point 
 #' @param color defaults to cadetblue
 #'
-#' @return
+#' @return # coming soon
 #' @export
 #'
-#' @examples
+#' @examples # coming soon
 plot.point <- function(point, color = 'cadetblue') {
   points(point[1], point[2], col = color, pch = 19)
 }
@@ -17,10 +17,10 @@ plot.point <- function(point, color = 'cadetblue') {
 #' @param x 
 #' @param y 
 #'
-#' @return
+#' @return # coming soon
 #' @export
 #'
-#' @examples
+#' @examples # coming soon
 angle <- function(x, y) {
   x1 <- x[1]
   x2 <- x[2]
@@ -36,20 +36,20 @@ angle <- function(x, y) {
 #'
 #' @param rad 
 #'
-#' @return
+#' @return # coming soon
 #' @export
 #'
-#' @examples
+#' @examples # coming soon
 rad2deg <- function(rad) {(rad * 180) / (pi)}
 
 #' Title
 #'
 #' @param points 
 #'
-#' @return
+#' @return # coming soon
 #' @export
 #'
-#' @examples
+#' @examples # coming soon
 dist.from.origin <- function(points) {
   (points[1] - points[2])**2
 }
@@ -58,10 +58,10 @@ dist.from.origin <- function(points) {
 #'
 #' @param x 
 #'
-#' @return
+#' @return # coming soon
 #' @export
 #'
-#' @examples
+#' @examples # coming soon
 my.mode <- function(x) {
   ux <- unique(x)
   ux[which.max(tabulate(match(x, ux)))]
@@ -72,10 +72,10 @@ my.mode <- function(x) {
 #' @param point1 
 #' @param point2 
 #'
-#' @return
+#' @return # coming soon
 #' @export
 #'
-#' @examples
+#' @examples # coming soon
 distance <- function(point1, point2) {
   sqrt((point2[1] - point1[1])**2 + (point2[2] - point1[2])**2)
 }
@@ -86,10 +86,10 @@ distance <- function(point1, point2) {
 #' @param x 
 #' @param p 
 #'
-#' @return
+#' @return # coming soon
 #' @export
 #'
-#' @examples
+#' @examples # coming soon
 calcDist <- function(m, x, p) {
   .Call('calcDist', PACKAGE = 'bplmnist', m, x, p)
 }
@@ -98,10 +98,10 @@ calcDist <- function(m, x, p) {
 #'
 #' @param matrix 
 #'
-#' @return
+#' @return # coming soon
 #' @export
 #'
-#' @examples
+#' @examples # coming soon
 distances <- function(matrix) {
   n <- nrow(matrix)
   dist.matrix <- matrix(NA, n, n)
@@ -117,10 +117,10 @@ distances <- function(matrix) {
 #'
 #' @param x 
 #'
-#' @return
+#' @return # coming soon
 #' @export
 #'
-#' @examples
+#' @examples # coming soon
 rotate <- function(x) { t(apply(x, 2, rev)) }
 
 #' Title
@@ -128,19 +128,19 @@ rotate <- function(x) { t(apply(x, 2, rev)) }
 #' @param points 
 #' @param relativity 
 #'
-#' @return
+#' @return # coming soon
 #' @export
 #'
-#' @examples
+#' @examples # coming soon
 nearorfar.from.origin <- function(points, relativity = 'nearest') {
   dists <- apply(points, 1, dist.from.origin)
-  return.pos <- NA
+  pos <- NA
   if (relativity == 'nearest') {
-    return.pos <- which.min(dists)
+    pos <- which.min(dists)
   } else if (relativity == 'furthest') {
-    return.pos <- which.max(dists)
+    pos <- which.max(dists)
   }
-  return(return.pos)
+  return(pos)
 }
 
 #' Title
@@ -149,10 +149,10 @@ nearorfar.from.origin <- function(points, relativity = 'nearest') {
 #' @param points 
 #' @param order 
 #'
-#' @return
+#' @return # coming soon
 #' @export
 #'
-#' @examples
+#' @examples # coming soon
 nearest.point <- function(point, points, order=1) {
   current.row <- row.match(point, points)
   x.distances <- distances(points)[current.row,]
@@ -166,10 +166,10 @@ nearest.point <- function(point, points, order=1) {
 #' @param point 
 #' @param points 
 #'
-#' @return
+#' @return # coming soon
 #' @export
 #'
-#' @examples
+#' @examples # coming soon
 neighbors.directions <- function(point, points) {
   current.row <- row.match(point, points)
   x.distances <- distances(points)[current.row,]

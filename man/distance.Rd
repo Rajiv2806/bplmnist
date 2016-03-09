@@ -11,7 +11,13 @@ distance(point1, point2)
 
 \item{point2}{}
 }
+\value{
+# coming soon
+}
 \description{
 Title
+}
+\examples{
+# coming soon
 }
 

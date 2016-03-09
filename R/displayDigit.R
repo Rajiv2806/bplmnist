@@ -8,10 +8,10 @@
 #' @param saveImage 
 #' @param newDevice 
 #'
-#' @return
+#' @return # coming soon
 #' @export
 #'
-#' @examples
+#' @examples # coming soon
 displayDigit <- function(pixels, 
                          label, 
                          predictedLabel = NULL, 
