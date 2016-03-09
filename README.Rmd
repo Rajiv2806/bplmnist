@@ -30,7 +30,7 @@ The MNIST dataset do not come with motor data so in what follows a "trajectory" 
 
 In theory, the directed path enables both new integer generation and integer prediction on test examples. Here we focus on the latter because it is cooler.
 
-## 1. Creating the thinned images
+## 1. Create the thinned images
 
 ```{r}
 data("mnist")
@@ -76,19 +76,22 @@ test.idcs <- setdiff(1:length(rand.idcs), train.idcs)
 test.set <- thinned.ints[test.idcs]
 ```
 
-"Train" on the training set - e.g. generate paths
+## "Train" on the training set
+
+*ADD ME: Describe path generating algorithm*
 
 ```{r}
 train.objects <- list()
+
 for (i in 0:9) {
   digit <- train.set[[which(sapply(train.set, function(dig) { dig$label == i }))]]
-  train.objects[[i+1]] <- train.digit(digit)#, animation = TRUE)
+  train.objects[[i+1]] <- train.digit(digit, animation = TRUE)
 }
 ```
 
 # Prediction
 
-Apriori probabilities for test set:
+Collect apriori probabilities for test set:
 
 ```{r}
 (test.distribution <- matrix(append(c(0:9), rep(0,10)), nrow = 10, ncol = 2))
@@ -102,6 +105,10 @@ apriori.test.probs <- test.distribution[,2]/length(test.set)
 # TODO: add assertthat for this test
 sum(sapply(test.set, function(obj) { obj$label == 0}))/length(test.set) == apriori.test.probs[1]
 ```
+
+Predict a test digit using Bayes Rule: For each test digit, calculate the posterior probability of each digit in the set {0,...,9} and predict which ever digit as the greatest posterior probability.
+
+$$P(digit = 0| \text{path data}) = P(\text{path data} | digit = 0) P(digit = 0)$$
 
 ```{r}
 # create distribution of first major steps
@@ -171,7 +178,7 @@ Room for improvement:
 * compare with tangent distance prediction - Is there a potential for better prediction with single training set?
 * possible refinement of the program, including a determination of relationship between strokes. However it is the novice opinion of this data scientist that there is a lot of randomness in the MNIST dataset which makes it hard to predict with a single tranining set.
 
-Reources:
+Resources:
 
 * [Science Magazine: Human-level concept learning through probabilistic program induction](http://science.sciencemag.org/content/sci/350/6266/1332.full.pdf)
 * [BPL on github](https://github.com/brendenlake/BPL)
