@@ -80,5 +80,13 @@ while (iter < ntests) {
   }
   accuracy <- 1-errors/length(test.set)
   accuracies[iter] <- accuracy
+
+  random.draws <- which(rmultinom(length(test.set), size = 1, prob = apriori.test.probs) == 1, arr.ind = TRUE)[,1]
+  random.errors <- 0
+  for (i in 1:length(test.set)) {
+    if (test.set[[i]]$label != random.draws[i]) random.errors <- random.errors + 1
+  }
+  random.accuracies[iter] <- (random.accuracy <- 1 - random.errors/length(test.set))
+
   iter <- iter + 1
 }
