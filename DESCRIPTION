@@ -7,6 +7,7 @@ Depends:
     R (>= 3.2.2), prodlim
 License: What license is it under?
 LazyData: true
+ZipData: no
 LinkingTo: Rcpp
 Imports:
     Rcpp, prodlim
