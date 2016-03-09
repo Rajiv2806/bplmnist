@@ -8,6 +8,7 @@ binary.digits <- subset(digits, X4 == 0 | X4 == 1)
 
 ntests <- 100
 accuracies <- rep(NA, ntests)
+random.accuracies <- rep(0, ntests)
 iter <- 1
 
 while (iter < ntests) {
@@ -27,9 +28,9 @@ while (iter < ntests) {
   test.set <- thinned.ints[test.idcs]
 
   train.objects <- list()
-  for (i in 0:9) {
+  for (i in 0:1) {
     digit <- train.set[[which(sapply(train.set, function(dig) { dig$label == i }))]]
-    train.objects[[i+1]] <- train.digit(digit)#, animation = TRUE)
+    train.objects[[i+1]] <- train.digit(digit)
   }
 
   (test.distribution <- matrix(append(c(0:1), rep(0,2)), nrow = 2, ncol = 2))
@@ -81,12 +82,13 @@ while (iter < ntests) {
   accuracy <- 1-errors/length(test.set)
   accuracies[iter] <- accuracy
 
-  random.draws <- which(rmultinom(length(test.set), size = 1, prob = apriori.test.probs) == 1, arr.ind = TRUE)[,1]
+  random.draws <- rbinom(length(test.set), size = 1, prob = apriori.test.probs[2])
   random.errors <- 0
   for (i in 1:length(test.set)) {
     if (test.set[[i]]$label != random.draws[i]) random.errors <- random.errors + 1
   }
-  random.accuracies[iter] <- (random.accuracy <- 1 - random.errors/length(test.set))
+  random.accuracies[iter] <- 1 - random.errors/length(test.set)
 
   iter <- iter + 1
 }
+

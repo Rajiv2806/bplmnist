@@ -34,15 +34,6 @@ generatePaths <- function(thinned.ints, animation = FALSE, sleep.time = 0.2) {
       Sys.sleep(sleep.time)
     }
     
-    # if we have reached 3 of the exteme locations, stop
-    max.x <- max(unvisited[,1])
-    min.x <- min(unvisited[,1])
-    max.y <- max(unvisited[,2])
-    min.y <- min(unvisited[,2])
-    max.x.visited <- FALSE
-    min.x.visited <- FALSE
-    max.y.visited <- FALSE
-    min.y.visited <- FALSE
     while (!is.null(nrow(unvisited))) {
       if (animation) {
         plot.point(current.pt, color = 'orange')
@@ -81,10 +72,6 @@ generatePaths <- function(thinned.ints, animation = FALSE, sleep.time = 0.2) {
       } else {
         if (!is.null(nrow(current.directions$neighbors))) {
           apply(current.directions$neighbors, 1, function(r) {
-            if (r[1] == max.x) max.x.visited <- TRUE
-            if (r[1] == min.x) min.x.visited <- TRUE
-            if (r[2] == max.y) max.y.visited <- TRUE
-            if (r[2] == min.y) min.y.visited <- TRUE
             if (!is.null(nrow(unvisited))) {
               r <- row.match(r, unvisited)
               if (!is.na(r)) unvisited <<- unvisited[-r,]
@@ -120,10 +107,6 @@ generatePaths <- function(thinned.ints, animation = FALSE, sleep.time = 0.2) {
         break
       } else {
         path <- rbind(path, new.pt)
-        if (new.pt[1] == max.x) max.x.visited <- TRUE
-        if (new.pt[1] == min.x) min.x.visited <- TRUE
-        if (new.pt[2] == max.y) max.y.visited <- TRUE
-        if (new.pt[2] == min.y) min.y.visited <- TRUE
         current.pt <- new.pt
       }
     }
