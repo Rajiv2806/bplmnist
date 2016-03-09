@@ -33,7 +33,7 @@ In theory, the directed path enables both new integer generation and integer pre
 ## 1. Creating the thinned images
 
 ```{r}
-digits <- load.mnist()
+digits <- data("mnist")
 
 # Select a random subset of digits
 rand.idcs <- sample(1:nrow(digits),100)
