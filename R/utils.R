@@ -38,7 +38,9 @@ distance <- function(point1, point2) {
   sqrt((point2[1] - point1[1])**2 + (point2[2] - point1[2])**2)
 }
 
-Rcpp::sourceCpp('src/distance.cpp')
+calcDist <- function() {
+  .Call('calcDist', PACKAGE = 'bplmnist')
+}
 
 distances <- function(matrix) {
   n <- nrow(matrix)

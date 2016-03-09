@@ -9,4 +9,7 @@ export(thin.points)
 export(train.digit)
 export(all.thinned.ints)
 export(collect.training.set)
-export(calcDist)
+useDynLib(bplmnist)
+exportPattern("^[[:alpha:]]+")
+importFrom(Rcpp, evalCpp)
+
