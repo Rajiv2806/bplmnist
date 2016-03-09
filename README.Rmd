@@ -78,13 +78,11 @@ test.set <- thinned.ints[test.idcs]
 
 "Train" on the training set - e.g. generate paths
 
-[ADD ME]: gif
-
 ```{r}
 train.objects <- list()
 for (i in 0:9) {
   digit <- train.set[[which(sapply(train.set, function(dig) { dig$label == i }))]]
-  train.objects[[i+1]] <- train.digit(digit, animation = TRUE)
+  train.objects[[i+1]] <- train.digit(digit)#, animation = TRUE)
 }
 ```
 
