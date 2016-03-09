@@ -132,9 +132,9 @@ for (i in 1:length(test.set)) {
   res <- lapply(train.objects, function(train.obj) {
     step.prob <- estimate$step.probs%*%train.obj$step.probs
     # probability given distribution of total steps for training object
-    length.prob <- dnorm((train.obj$total.steps - estimate$total.steps), mean = 0, sd = total.steps.sd)
-    strokes.prob <- dnorm((train.obj$num.real.strokes - estimate$num.real.strokes), mean = 0, sd = num.real.strokes.sd)
-    changes.prob <- dnorm((train.obj$changes.in.direction - estimate$changes.in.direction), mean = 0, sd = changes.sd)
+    length.prob <- dpois(estimate$total.steps, lambda = train.obj$total.steps)
+    strokes.prob <- dpois(estimate$num.real.strokes, lambda = train.obj$num.real.strokes)
+    changes.prob <- dpois(estimate$changes.in.direction, lambda = train.obj$changes.in.direction)
     # if the first major step is the same, we want the probability of that major step given all the data 
     first.major.step.prob <- if ((!is.na(estimate$first.major.step)) &&
                                  (!is.na(train.obj$first.major.step)) &&
