@@ -2,6 +2,8 @@
 
 S3method(all,thinned.ints)
 S3method(plot,point)
+export(all.thinned.ints)
+export(plot.point)
 export(angle)
 export(calcDist)
 export(displayDigit)

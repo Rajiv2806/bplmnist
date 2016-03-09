@@ -47,7 +47,7 @@ for (i in 1:10) {
   Sys.sleep(0.5)
 }
 
-thinned.ints <- all.thinned.ints(digits[rand.idcs,])
+thinned.ints <- bplmnist::all.thinned.ints(digits[rand.idcs,])
 ```
 
 Make sure things worked:
