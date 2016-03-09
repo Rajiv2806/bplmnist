@@ -89,6 +89,12 @@ neighbors.directions <- function(point, points) {
   return(list(directions = directions, neighbors = neighbors.points))
 }
 
+#' Title
+#'
+#' @return
+#' @export
+#'
+#' @examples
 load.mnist <- function() {
   read.csv('data/MNIST_training.csv')
 }
