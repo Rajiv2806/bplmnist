@@ -82,20 +82,6 @@ distance <- function(point1, point2) {
 
 #' Title
 #'
-#' @param m 
-#' @param x 
-#' @param p 
-#'
-#' @return # coming soon
-#' @export
-#'
-#' @examples # coming soon
-calcDist <- function(m, x, p) {
-  .Call('calcDist', PACKAGE = 'bplmnist', m, x, p)
-}
-
-#' Title
-#'
 #' @param matrix 
 #'
 #' @return # coming soon

@@ -38,22 +38,22 @@ digits <- data
 # Select a random subset of digits
 rand.idcs <- sample(1:nrow(digits),100)
 
+# displaying the original digit
 for (i in 1:10) {
   digit <- digits[rand.idcs[i],]
   label <- as.numeric(digit[1])
   features <- as.numeric(digit[2:ncol(digit)])
-  # displaying the original digit
   displayDigit(features, label, newDevice = FALSE)
   Sys.sleep(0.5)
 }
 
-thinned.ints <- bplmnist::all.thinned.ints(digits[rand.idcs,])
+thinned.ints <- collect.digit.skeletons(digits[rand.idcs,])
 ```
 
 Make sure things worked:
 
 ```{r}
-for (i in 1:length(rand.idcs)) {
+for (i in 1:10) {
   plot(thinned.ints[[i]]$points, main = paste0('Hey, this is a: ', thinned.ints[[i]]$label), pch = 19, ylim = c(-16,0), xlim = c(0,16))
   Sys.sleep(0.5)
 }
@@ -84,7 +84,7 @@ test.set <- thinned.ints[test.idcs]
 train.objects <- list()
 for (i in 0:9) {
   digit <- train.set[[which(sapply(train.set, function(dig) { dig$label == i }))]]
-  train.objects[[i+1]] <- train.digit(digit)#, animation = TRUE)
+  train.objects[[i+1]] <- train.digit(digit, animation = TRUE)
 }
 ```
 
@@ -106,11 +106,6 @@ sum(sapply(test.set, function(obj) { obj$label == 0}))/length(test.set) == aprio
 ```
 
 ```{r}
-# ASSUMPTION: Normally distributed steps, strokes and changes in direction
-total.steps.sd <- sd(sapply(train.objects, function(obj) { obj$total.steps }))
-num.real.strokes.sd <- sd(sapply(train.objects, function(obj) { obj$num.real.strokes }))
-changes.sd <- sd(sapply(train.objects, function(obj) { obj$changes.in.direction }))
-
 # create distribution of first major steps
 # 
 first.steps <- rep(0, 8)

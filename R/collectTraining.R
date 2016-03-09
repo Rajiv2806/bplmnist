@@ -1,5 +1,13 @@
 # Collect a training set
 # returns the training set and their indices from the argument of thinned ints
+#' Title
+#'
+#' @param thinned.ints 
+#'
+#' @return # coming soon
+#' @export
+#'
+#' @examples # coming soon
 collect.training.set <- function(thinned.ints) {
   train.set <- list()
   train.labels <- c()
