@@ -8,11 +8,11 @@
 #' @export
 #'
 #' @examples # coming soon
-collect.training.set <- function(thinned.ints) {
+collect.training.set <- function(thinned.ints, set.length = 10) {
   train.set <- list()
   train.labels <- c()
   train.idcs <- c()
-  while (length(train.labels) < 10) {
+  while (length(train.labels) < set.length) {
     for (i in 1:length(thinned.ints)) {
       label <- thinned.ints[[i]]$label
       if (!(label %in% train.labels)) {
