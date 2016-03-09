@@ -12,6 +12,15 @@ plot.point <- function(point, color = 'cadetblue') {
   points(point[1], point[2], col = color, pch = 19)
 }
 
+#' Title
+#'
+#' @param x 
+#' @param y 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 angle <- function(x, y) {
   x1 <- x[1]
   x2 <- x[2]
@@ -23,25 +32,76 @@ angle <- function(x, y) {
   return(angle)
 }
 
+#' Title
+#'
+#' @param rad 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 rad2deg <- function(rad) {(rad * 180) / (pi)}
 
+#' Title
+#'
+#' @param points 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 dist.from.origin <- function(points) {
   (points[1] - points[2])**2
 }
 
+#' Title
+#'
+#' @param x 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 my.mode <- function(x) {
   ux <- unique(x)
   ux[which.max(tabulate(match(x, ux)))]
 }
 
+#' Title
+#'
+#' @param point1 
+#' @param point2 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 distance <- function(point1, point2) {
   sqrt((point2[1] - point1[1])**2 + (point2[2] - point1[2])**2)
 }
 
+#' Title
+#'
+#' @param m 
+#' @param x 
+#' @param p 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 calcDist <- function(m, x, p) {
   .Call('calcDist', PACKAGE = 'bplmnist', m, x, p)
 }
 
+#' Title
+#'
+#' @param matrix 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 distances <- function(matrix) {
   n <- nrow(matrix)
   dist.matrix <- matrix(NA, n, n)
@@ -53,8 +113,25 @@ distances <- function(matrix) {
   return(dist.matrix)
 }
 
-rotate <- function(x) t(apply(x, 2, rev))
+#' Title
+#'
+#' @param x 
+#'
+#' @return
+#' @export
+#'
+#' @examples
+rotate <- function(x) { t(apply(x, 2, rev)) }
 
+#' Title
+#'
+#' @param points 
+#' @param relativity 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 nearorfar.from.origin <- function(points, relativity = 'nearest') {
   dists <- apply(points, 1, dist.from.origin)
   return.pos <- NA
@@ -66,6 +143,16 @@ nearorfar.from.origin <- function(points, relativity = 'nearest') {
   return(return.pos)
 }
 
+#' Title
+#'
+#' @param point 
+#' @param points 
+#' @param order 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 nearest.point <- function(point, points, order=1) {
   current.row <- row.match(point, points)
   x.distances <- distances(points)[current.row,]
@@ -74,6 +161,15 @@ nearest.point <- function(point, points, order=1) {
   return(points[nearest.idx,])
 }
 
+#' Title
+#'
+#' @param point 
+#' @param points 
+#'
+#' @return
+#' @export
+#'
+#' @examples
 neighbors.directions <- function(point, points) {
   current.row <- row.match(point, points)
   x.distances <- distances(points)[current.row,]
