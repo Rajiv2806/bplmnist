@@ -12,10 +12,7 @@
 thin.points <- function(current.point, white.pixels, animation = FALSE) {
   white.pixels.thinned <- white.pixels
   unvisited <- white.pixels
-  max.iter <- length(white.pixels)
-  iter <- 0
-  while (!is.null(nrow(unvisited)) > 0 && iter < max.iter) {
-    iter <- iter + 1
+  while (!is.null(nrow(unvisited)) > 0) {
     if (animation) plot.point(current.point, color = 'blue')
     if (animation) Sys.sleep(0.2)
 
