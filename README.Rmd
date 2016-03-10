@@ -108,7 +108,7 @@ Predict a test digit using Bayes Rule
 $$P(digit = 0| \text{path data}) = P(\text{path data} | digit = 0) P(digit = 0)$$
 
 ```{r}
-(accuracy <- predict.mnist(train.objects, test.set))
+(accuracy <- predict.mnist(train.objects, test.set)$accuracy)
 ```
 
 Resources:
