@@ -4,7 +4,7 @@
 \alias{collect.training.set}
 \title{Title}
 \usage{
-collect.training.set(thinned.ints)
+collect.training.set(thinned.ints, set.length = 10)
 }
 \arguments{
 \item{thinned.ints}{}

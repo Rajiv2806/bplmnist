@@ -1,13 +1,13 @@
 # if has a solid side and missing opposite side, delete it
 on.periphery <- function(current.point, pixels) {
-  left <- !is.na(row.match(current.point-c(1,0), pixels))
-  right <- !is.na(row.match(current.point+c(1,0), pixels))
-  bottom <- !is.na(row.match(current.point-c(0,1), pixels))
-  top <- !is.na(row.match(current.point+c(0,1), pixels))
-  top.left <- !is.na(row.match(current.point-c(1,-1), pixels))
-  top.right <- !is.na(row.match(current.point+c(1,1), pixels))
-  bottom.left <- !is.na(row.match(current.point-c(1,1), pixels))
-  bottom.right <- !is.na(row.match(current.point+c(1,-1), pixels))
+  left <- !is.na(my.row.match(current.point-c(1,0), pixels))
+  right <- !is.na(my.row.match(current.point+c(1,0), pixels))
+  bottom <- !is.na(my.row.match(current.point-c(0,1), pixels))
+  top <- !is.na(my.row.match(current.point+c(0,1), pixels))
+  top.left <- !is.na(my.row.match(current.point-c(1,-1), pixels))
+  top.right <- !is.na(my.row.match(current.point+c(1,1), pixels))
+  bottom.left <- !is.na(my.row.match(current.point-c(1,1), pixels))
+  bottom.right <- !is.na(my.row.match(current.point+c(1,-1), pixels))
 
   on.periphery <- FALSE
 

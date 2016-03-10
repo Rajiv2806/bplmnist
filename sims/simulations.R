@@ -94,6 +94,13 @@ while (iter < ntests) {
 mean(accuracies)
 mean(random.accuracies)
 
+# ADD ME - write to unique file
+
+
+sims <- read.csv('data/sims.csv')
+randsims <- read.csv('data/sims-random.csv')
+
+# ADD ME - save images
 plot(random.accuracies, ylim = c(0,100), xlim = c(0,100), color = 'red', type = 'l')
-lines(random.accuracies, ylim = c(0,100), xlim = c(0,100), color = 'blue')
+lines(accuracies, ylim = c(0,100), xlim = c(0,100), color = 'blue')
 
