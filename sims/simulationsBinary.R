@@ -15,12 +15,12 @@ iter <- 1
 while (iter < ntests) {
   print(paste0('starting test: ', iter))
   # Select a random subset of digits
-  rand.idcs <- sample(1:nrow(digits))
+  rand.idcs <- sample(1:nrow(binary.digits),100)
   # shuffle the skeletons so we get a new training and test set for this iteration
   digit.skeletons <- all.digit.skeletons[rand.idcs]
 
   # collect a training set
-  training.collection <- collect.training.set(digit.skeletons)
+  training.collection <- collect.training.set(digit.skeletons, set.length = 2)
   train.set <- training.collection$train.set
   train.idcs <- training.collection$train.idcs
 
@@ -29,12 +29,12 @@ while (iter < ntests) {
   test.set <- digit.skeletons[test.idcs]
 
   train.objects <- list()
-  for (i in 0:9) {
+  for (i in 0:1) {
     digit <- train.set[[which(sapply(train.set, function(dig) { dig$label == i }))]]
     train.objects[[i+1]] <- train.digit(digit)
   }
 
-  results <- predict.mnist(train.objects, test.set)
+  (results <- predict.mnist(train.objects, test.set, set.length = 2))
   accuracy <- results$accuracy
   apriori.test.probs <- results$apriori.test.probs
   accuracies[iter] <- accuracy

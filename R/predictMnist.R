@@ -7,9 +7,13 @@
 #' @export
 #'
 #' @examples # coming soon
-predict.mnist <- function(train.objects, test.set) {
+predict.mnist <- function(train.objects, test.set, set.length = 10) {
   # generate apriori probabilities
-  (test.distribution <- matrix(append(c(0:9), rep(0,10)), nrow = 10, ncol = 2))
+  test.distribution <- if (set.length == 10) {
+    matrix(append(c(0:9), rep(0,10)), nrow = 10, ncol = 2)
+  } else if (set.length == 2) {
+    matrix(append(c(0:1), rep(0,2)), nrow = 2, ncol = 2)
+  }
   for (idx in 1:length(test.set)) {
     test.distribution[(test.set[[idx]]$label+1),2] <- test.distribution[(test.set[[idx]]$label+1),2] + 1
   }
@@ -28,7 +32,7 @@ predict.mnist <- function(train.objects, test.set) {
       ifelse(is.na(fs), FALSE, fs == i)
     }))
   }
-  first.steps.dist <- first.steps/10
+  first.steps.dist <- first.steps/length(first.steps)
   
   # test objects
   errors <- 0
