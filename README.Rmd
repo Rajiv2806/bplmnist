@@ -82,7 +82,7 @@ test.set <- thinned.ints[test.idcs]
 
 "Training" is feature extraction. Features are extracted in two stages:
 
-1. The `generatePaths` algorithm generates a list of "directed strokes"
+1. The `generatePaths` algorithm generates a list of "directed strokes" [animation](https://youtu.be/htCA3S_pigk)
 2. Directed strokes are used to generate features of the first major stroke
 
 [ADD ME] Image of digit skeleton
