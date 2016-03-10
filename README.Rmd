@@ -36,7 +36,7 @@ In theory, the directed path enables both new integer generation and integer pre
 data("mnist")
 digits <- data
 # Select a random subset of digits
-rand.idcs <- sample(1:nrow(digits),100)
+rand.idcs <- sample(1:nrow(digits))
 
 # displaying the original digit
 for (i in 1:10) {
@@ -47,7 +47,8 @@ for (i in 1:10) {
   Sys.sleep(0.5)
 }
 
-thinned.ints <- collect.digit.skeletons(digits[rand.idcs,])
+# takes >3 minutes
+system.time(thinned.ints <- collect.digit.skeletons(digits[rand.idcs,]))
 ```
 
 ### The "digit skeletons":
