@@ -15,6 +15,10 @@ library(bplmnist)
 
 # Bayesian Programming Learning on MNIST Dataset
 
+**Objective: Predict, using probabilistic program induction, from 10 classes of hand-drawn digit using a single instance of each class**
+
+**Similarities and differences with the omniglot data set:**
+
 The MNIST dataset of hand-drawn integers is comparable to the omniglot dataset of hand-drawn alphabetic characters in that it includes many examples with a high degree of variation. It is the variation across two-dimensions which makes the classification difficult. More explicitly, two vectors of a long series of pixels identifying the same character are very likely to be completely distinct.
 
 For the MNIST dataset, we have simulated the process of the Bayesian Program Learning for the omniglot dataset for predicting new integers using a single example from each class 0-9.
@@ -25,10 +29,10 @@ The MNIST dataset do not come with motor data so in what follows a "trajectory" 
 
 ## The process is as follows:
 
-**1. Create thinned image:** The original image is whittled down to a "one-pixel" skeleton
-**2. Generate directed path:** Simulate trajectory using a heuristics-motivated path generating algorithm. [ADD ME: Describe how this works]
+**1. Create skeleton:** The original image is whittled down to a "one-pixel" skeleton
+**2. Generate directed path:** Simulate trajectory using a heuristics-motivated path generating algorithm.
 
-In theory, the directed path enables both new integer generation and integer prediction on test examples. Here we focus on the latter because it is cooler.
+These extracted features enable both new integer generation and integer prediction on test examples. Here we focus on the latter ( mostly because I thought it was more interesting).
 
 ## 1. Create the thinned images
 

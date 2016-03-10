@@ -2,13 +2,10 @@
 
 ## Presentation
 
-* add objective
-* differences with omniglot data set
 * include proportional for
 * deep learning v bpl: deep in data and computation, this shallow, but deep in programmatic knowledge, babies vs adults
 * performance digression [hadley/lineprof](http://adv-r.had.co.nz/Profiling.html#measure-perf)
 * description of "feature extraction process"
-* upload / link to video
 * plots of performance
 * "edge" detection is done via this thinning process (link to thinning process?)
 

@@ -5,6 +5,7 @@ library(bplmnist)
 data("mnist")
 digits <- data
 binary.digits <- subset(digits, X4 == 0 | X4 == 1)
+all.digit.skeletons <- collect.digit.skeletons(binary.digits)
 
 ntests <- 100
 accuracies <- rep(NA, ntests)
@@ -14,80 +15,37 @@ iter <- 1
 while (iter < ntests) {
   print(paste0('starting test: ', iter))
   # Select a random subset of digits
-  rand.idcs <- sample(1:nrow(binary.digits),100)
-
-  thinned.ints <- collect.digit.skeletons(binary.digits[rand.idcs,])
+  rand.idcs <- sample(1:nrow(digits))
+  # shuffle the skeletons so we get a new training and test set for this iteration
+  digit.skeletons <- all.digit.skeletons[rand.idcs]
 
   # collect a training set
-  training.collection <- collect.training.set(thinned.ints, set.length = 2)
+  training.collection <- collect.training.set(digit.skeletons)
   train.set <- training.collection$train.set
   train.idcs <- training.collection$train.idcs
 
   # and a test set
   test.idcs <- setdiff(1:length(rand.idcs), train.idcs)
-  test.set <- thinned.ints[test.idcs]
+  test.set <- digit.skeletons[test.idcs]
 
   train.objects <- list()
-  for (i in 0:1) {
+  for (i in 0:9) {
     digit <- train.set[[which(sapply(train.set, function(dig) { dig$label == i }))]]
     train.objects[[i+1]] <- train.digit(digit)
   }
 
-  (test.distribution <- matrix(append(c(0:1), rep(0,2)), nrow = 2, ncol = 2))
-  for (idx in 1:length(test.set)) {
-    test.distribution[(test.set[[idx]]$label+1),2] <- test.distribution[(test.set[[idx]]$label+1),2] + 1
-  }
-
-  apriori.test.probs <- test.distribution[,2]/length(test.set)
-
-  # create distribution of first major steps
-  # 
-  first.steps <- rep(0, 8)
-  for (i in 1:8) {
-    first.steps[i] <- sum(sapply(train.objects, function(obj) {
-      fs <- obj$first.major.step
-      ifelse(is.na(fs), FALSE, fs == i)
-    }))
-  }
-  first.steps.dist <- first.steps/2
-
-  # test objects
-  errors <- 0
-  for (i in 1:length(test.set)) {
-    test.digit <- test.set[[i]]
-    estimate <- train.digit(test.digit)
-
-    # compare our test object with our training objects: e.g. predict the integer which has the most likely distribution of steps for the longest stroke, weighted by the difference it the length of the first stroke and weighted by the total number of strokes
-    res <- lapply(train.objects, function(train.obj) {
-      step.prob <- estimate$step.probs%*%train.obj$step.probs
-      # probability given distribution of total steps for training object
-      length.prob <- dpois(estimate$total.steps, lambda = train.obj$total.steps)
-      strokes.prob <- dpois(estimate$num.real.strokes, lambda = train.obj$num.real.strokes)
-      changes.prob <- dpois(estimate$changes.in.direction, lambda = train.obj$changes.in.direction)
-      # if the first major step is the same, we want the probability of that major step given all the data 
-      first.major.step.prob <- if ((!is.na(estimate$first.major.step)) &&
-                                   (!is.na(train.obj$first.major.step)) &&
-                                   (train.obj$first.major.step == estimate$first.major.step)) {
-        first.steps.dist[estimate$first.major.step]
-      } else {
-        ifelse(is.na(estimate$first.major.step), 0.1, max(0.1*first.steps.dist[estimate$first.major.step], 0.1))
-      }
-      # all the likelihoods times the prior
-      return(strokes.prob*first.major.step.prob*length.prob*changes.prob*apriori.test.probs[train.obj$label+1])
-    })
-    pred <- which.max(res)-1
-    actual <- test.digit$label
-    if (pred != actual) errors <- errors + 1
-  }
-  accuracy <- 1-errors/length(test.set)
+  results <- predict.mnist(train.objects, test.set)
+  accuracy <- results$accuracy
+  apriori.test.probs <- results$apriori.test.probs
   accuracies[iter] <- accuracy
 
-  random.draws <- rbinom(length(test.set), size = 1, prob = apriori.test.probs[2])
+  random.draws <- which(rmultinom(length(test.set), size = 1, prob = apriori.test.probs) == 1, arr.ind = TRUE)[,1]
+
   random.errors <- 0
   for (i in 1:length(test.set)) {
     if (test.set[[i]]$label != random.draws[i]) random.errors <- random.errors + 1
   }
-  random.accuracies[iter] <- 1 - random.errors/length(test.set)
+  random.accuracies[iter] <- (random.accuracy <- 1 - random.errors/length(test.set))
 
   iter <- iter + 1
 }

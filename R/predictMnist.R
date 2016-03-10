@@ -59,5 +59,5 @@ predict.mnist <- function(train.objects, test.set) {
     if (pred != actual) errors <- errors + 1
   }
   accuracy <- 1-errors/length(test.set)
-  return(list(accuracy = accuracy))
+  return(list(accuracy = accuracy, apriori.test.probs = apriori.test.probs))
 }
