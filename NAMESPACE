@@ -2,8 +2,8 @@
 useDynLib(bplmnist)
 exportPattern("^[[:alpha:]]+")
 importFrom(Rcpp, evalCpp)
-
 S3method(plot,point)
+S3method(predict,mnist)
 export(angle)
 export(calcDist)
 export(collect.digit.skeletons)
