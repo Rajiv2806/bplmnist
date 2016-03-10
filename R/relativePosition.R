@@ -35,24 +35,23 @@ relative.pt <- function(pixels, current.point, position) {
   pt.idx <- NA
   if (is.null(nrow(pixels))) return(pixels)
   # FIXME: not sure why this is necessary, should not be called to start?
-  if (length(position) == 0) return(pixels)
 
   if (position == 1) {
-    pt.idx <- my.row.match(current.point-c(1,-1), pixels)
+    pt.idx <- row.match(current.point-c(1,-1), pixels)
   } else if (position == 2) {
-    pt.idx <- my.row.match(current.point+c(0,1), pixels)
+    pt.idx <- row.match(current.point+c(0,1), pixels)
   } else if (position == 3) {
-    pt.idx <- my.row.match(current.point+c(1,1), pixels)
+    pt.idx <- row.match(current.point+c(1,1), pixels)
   } else if (position == 4) {
-    pt.idx <- my.row.match(current.point+c(1,0), pixels)
+    pt.idx <- row.match(current.point+c(1,0), pixels)
   } else if (position == 5) {
-    pt.idx <- my.row.match(current.point+c(1,-1), pixels)
+    pt.idx <- row.match(current.point+c(1,-1), pixels)
   } else if (position == 6) {
-    pt.idx <- my.row.match(current.point-c(0,1), pixels)
+    pt.idx <- row.match(current.point-c(0,1), pixels)
   } else if (position == 7) {
-    pt.idx <- my.row.match(current.point-c(1,1), pixels)
+    pt.idx <- row.match(current.point-c(1,1), pixels)
   } else if (position == 8) {
-    pt.idx <- my.row.match(current.point-c(1,0), pixels)
+    pt.idx <- row.match(current.point-c(1,0), pixels)
   }
   
   return(pixels[pt.idx,])

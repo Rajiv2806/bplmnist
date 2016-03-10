@@ -73,12 +73,12 @@ generatePaths <- function(thinned.ints, animation = FALSE, sleep.time = 0.5) {
         if (!is.null(nrow(current.directions$neighbors))) {
           apply(current.directions$neighbors, 1, function(r) {
             if (!is.null(nrow(unvisited))) {
-              r <- my.row.match(r, unvisited)
+              r <- row.match(r, unvisited)
               if (!is.na(r)) unvisited <<- unvisited[-r,]
             }
           })
         } else {
-          r <- my.row.match(current.directions$neighbors, unvisited)
+          r <- row.match(current.directions$neighbors, unvisited)
           if (!is.na(r)) unvisited <<- unvisited[-r,]
         }
       }
@@ -98,7 +98,7 @@ generatePaths <- function(thinned.ints, animation = FALSE, sleep.time = 0.5) {
       } 
       
       if (!is.null(nrow(unvisited))) {
-        r <- my.row.match(current.pt, unvisited)
+        r <- row.match(current.pt, unvisited)
         if (!is.na(r)) unvisited <<- unvisited[-r,]
       }
       

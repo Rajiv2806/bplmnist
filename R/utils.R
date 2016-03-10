@@ -140,7 +140,7 @@ nearorfar.from.origin <- function(points, relativity = 'nearest') {
 #'
 #' @examples # coming soon
 nearest.point <- function(point, points, order=1) {
-  current.row <- my.row.match(point, points)
+  current.row <- row.match(point, points)
   x.distances <- distances(points)[current.row,]
   ordered.distances <- x.distances[order(x.distances)]
   nearest.idx <- setdiff(order(x.distances), current.row)[order]
@@ -157,7 +157,7 @@ nearest.point <- function(point, points, order=1) {
 #'
 #' @examples # coming soon
 neighbors.directions <- function(point, points) {
-  current.row <- my.row.match(point, points)
+  current.row <- row.match(point, points)
   x.distances <- distances(points)[current.row,]
   neighbors <- setdiff(which(x.distances <= sqrt(2)), current.row)
   neighbors.points <- points[neighbors,]

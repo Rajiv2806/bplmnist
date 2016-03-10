@@ -40,7 +40,8 @@ These extracted features enable both new integer generation and integer predicti
 data("mnist")
 digits <- data
 # Select a random subset of digits
-rand.idcs <- sample(1:nrow(digits))
+# Subset data so to speed things up
+rand.idcs <- sample(1:nrow(digits), 100)
 
 # displaying the original digit
 for (i in 1:10) {
@@ -51,8 +52,7 @@ for (i in 1:10) {
   Sys.sleep(0.5)
 }
 
-# takes >3 minutes
-system.time(thinned.ints <- collect.digit.skeletons(digits[rand.idcs,]))
+thinned.ints <- collect.digit.skeletons(digits[rand.idcs,])
 ```
 
 ### The "digit skeletons":
@@ -108,6 +108,11 @@ $$P(digit = 0| \text{path data}) = P(\text{path data} | digit = 0) P(digit = 0)$
 ```{r}
 (accuracy <- predict.mnist(train.objects, test.set)$accuracy)
 ```
+
+# 100 simulations
+
+![10 classes](sims1.png)
+![2 classes](sims2.png)
 
 ## Questions?
 
