@@ -101,6 +101,15 @@ sims <- read.csv('data/sims.csv')
 randsims <- read.csv('data/sims-random.csv')
 
 # ADD ME - save images
-plot(random.accuracies, ylim = c(0,100), xlim = c(0,100), color = 'red', type = 'l')
-lines(accuracies, ylim = c(0,100), xlim = c(0,100), color = 'blue')
+plot(as.numeric(randsims[,1]), ylim = c(0,1), xlim = c(0,100), col = 'red', type = 'l')
+lines(randsims, col = 'red')
+lines(sims, col = 'blue')
+
+simsbin <- read.csv('data/sims-binary.csv')
+randsimsbin <- read.csv('data/sims-binary-random.csv')
+
+# ADD ME - save images
+plot(as.numeric(randsimsbin[,1]), ylim = c(0,1), xlim = c(0,100), col = 'red', type = 'l')
+lines(randsimsbin, col = 'red')
+lines(simsbin, col = 'blue')
 

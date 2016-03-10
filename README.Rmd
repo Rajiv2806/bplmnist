@@ -50,7 +50,7 @@ for (i in 1:10) {
 system.time(thinned.ints <- collect.digit.skeletons(digits[rand.idcs,]))
 ```
 
-Make sure things worked:
+### The "digit skeletons":
 
 ```{r}
 for (i in 1:10) {
@@ -59,7 +59,7 @@ for (i in 1:10) {
 }
 ```
 
-With the thinned images, we generate a training set of the distinct set of 10 distinct integers.
+### Collect a training set 0-9
 
 ```{r}
 # returns first 0-9 distinct digits
@@ -68,7 +68,9 @@ train.set <- training.collection$train.set
 train.idcs <- training.collection$train.idcs
 ```
 
-And test set:
+### Everything else is in the test set
+
+The size of the test set is $n-10$
 
 ```{r}
 # Collect the test set
@@ -78,7 +80,12 @@ test.set <- thinned.ints[test.idcs]
 
 ## "Train" on the training set
 
-*ADD ME: Describe path generating algorithm*
+"Training" is feature extraction. Features are extracted in two stages:
+
+1. The `generatePaths` algorithm generates a list of "directed strokes"
+2. Directed strokes are used to generate features of the first major stroke
+
+[ADD ME] Image of digit skeleton
 
 ```{r}
 train.objects <- list()
