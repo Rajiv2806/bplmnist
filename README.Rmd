@@ -171,13 +171,6 @@ for (iter in 1:ntests) {
 mean(random.accuracies)
 ```
 
-Better than random chance (acheived 34.44% with one set)
-
-Room for improvement:
-
-* compare with tangent distance prediction - Is there a potential for better prediction with single training set?
-* possible refinement of the program, including a determination of relationship between strokes. However it is the novice opinion of this data scientist that there is a lot of randomness in the MNIST dataset which makes it hard to predict with a single tranining set.
-
 Resources:
 
 * [Science Magazine: Human-level concept learning through probabilistic program induction](http://science.sciencemag.org/content/sci/350/6266/1332.full.pdf)
