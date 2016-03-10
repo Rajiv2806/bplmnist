@@ -90,8 +90,6 @@ test.set <- thinned.ints[test.idcs]
 1. The `generatePaths` algorithm generates a list of "directed strokes" [animation](https://youtu.be/htCA3S_pigk)
 2. Directed strokes are used to generate features of the first major stroke
 
-[ADD ME] Image of digit skeleton
-
 ```{r}
 train.objects <- list()
 
@@ -111,7 +109,9 @@ $$P(digit = 0| \text{path data}) = P(\text{path data} | digit = 0) P(digit = 0)$
 (accuracy <- predict.mnist(train.objects, test.set)$accuracy)
 ```
 
-Resources:
+## Questions?
+
+## Resources:
 
 * [Science Magazine: Human-level concept learning through probabilistic program induction](http://science.sciencemag.org/content/sci/350/6266/1332.full.pdf)
 * [BPL on github](https://github.com/brendenlake/BPL)
