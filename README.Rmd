@@ -35,7 +35,7 @@ The MNIST dataset do not come with motor data so in what follows a "trajectory" 
 
 **2. Generate directed path:** Simulate trajectory using a heuristics-motivated path generating algorithm.
 
-These extracted features enable both new integer generation and integer prediction on test examples. Here we focus on the latter ( mostly because I thought it was more interesting).
+These extracted features enable both new integer generation and integer prediction on test examples. Here we focus on the latter (I thought it was more interesting).
 
 ## 1. Create the thinned images
 
@@ -58,7 +58,7 @@ for (i in 1:10) {
 thinned.ints <- collect.digit.skeletons(digits[rand.idcs,])
 ```
 
-### The "digit skeletons":
+### The digit skeletons:
 
 ```{r}
 for (i in 1:10) {
@@ -86,7 +86,7 @@ test.idcs <- setdiff(1:length(rand.idcs), train.idcs)
 test.set <- thinned.ints[test.idcs]
 ```
 
-## "Train" on the training set
+## Train on the training set
 
 "Training" is feature extraction. Features are extracted in two stages:
 
