@@ -117,6 +117,8 @@ P(digit.type = 0 | stroke.data) ~ P(stroke.data | digit = 0) P(digit = 0)
 ![10 classes](sims1.png)
 ![2 classes](sims2.png)
 
+## [See TODO.md](TODO.md)
+
 ## Questions?
 
 ## Resources:

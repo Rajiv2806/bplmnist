@@ -13,3 +13,4 @@
 ## Code
 
 * use assertthat
+* never code on an island
