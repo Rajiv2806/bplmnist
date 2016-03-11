@@ -36,6 +36,7 @@ system.time(while (iter <= ntests) {
 
   results <- predict.mnist(train.objects, test.set)
   accuracy <- results$accuracy
+  print(paste0('Accuracy: ', accuracy))
   apriori.test.probs <- results$apriori.test.probs
   accuracies[iter] <- accuracy
 
@@ -66,17 +67,17 @@ simresults <- read.csv(filename)
 plot(simresults[,'accuracy.random'], ylim = c(0,1), xlim = c(0,100), col = 'red', type = 'l')
 lines(simresults[,'accuracy.algorithm'], col = 'red')
 
-randsims <- read.csv('data/sims-random.csv')
-sims <- read.csv('data/sims.csv')
-png('sims1.png')
-plot(as.numeric(as.matrix(randsims)), ylim = c(0,1), xlim = c(0,100), col = 'red',type = 'l')
-lines(sims, col = 'blue')
-dev.off()
+# randsims <- read.csv('data/sims-random.csv')
+# sims <- read.csv('data/sims.csv')
+# png('sims1.png')
+# plot(as.numeric(as.matrix(randsims)), ylim = c(0,1), xlim = c(0,100), col = 'red',type = 'l')
+# lines(sims, col = 'blue')
+# dev.off()
 
-randsims <- read.csv('data/sims-binary-random.csv')
-sims <- read.csv('data/sims-binary.csv')
-png('sims2.png')
-plot(as.numeric(as.matrix(randsims)), ylim = c(0,1), xlim = c(0,100), col = 'red',type = 'l')
-lines(sims, col = 'blue')
-dev.off()
+# randsims <- read.csv('data/sims-binary-random.csv')
+# sims <- read.csv('data/sims-binary.csv')
+# png('sims2.png')
+# plot(as.numeric(as.matrix(randsims)), ylim = c(0,1), xlim = c(0,100), col = 'red',type = 'l')
+# lines(sims, col = 'blue')
+# dev.off()
 

@@ -27,6 +27,8 @@ One challenge in simulating this process directly is that the BPL paper used mot
 
 The MNIST dataset do not come with motor data so in what follows a "trajectory" is simulated by a directed-path-generating algorithm that relies highly on heuristics of how characters are drawn. The process here is also simplified by relying  entirely on the directed paths generated from the algorithm and has not incorporated the relations between strokes as part of assessing the posterior probability.
 
+**Deep Thought: Something about deep learning vs BPL**
+
 ## The process is as follows:
 
 **1. Create skeleton:** The original image is whittled down to a "one-pixel" skeleton
@@ -101,9 +103,9 @@ for (i in 0:9) {
 
 # Prediction
 
-Predict a test digit using Bayes Rule
+Predict a test digit using Bayes:
 
-$$P(digit = 0| \text{path data}) = P(\text{path data} | digit = 0) P(digit = 0)$$
+P(digit.type = 0 | stroke.data) ~ P(stroke.data | digit = 0) P(digit = 0)
 
 ```{r}
 (accuracy <- predict.mnist(train.objects, test.set)$accuracy)
@@ -122,5 +124,6 @@ $$P(digit = 0| \text{path data}) = P(\text{path data} | digit = 0) P(digit = 0)$
 * [BPL on github](https://github.com/brendenlake/BPL)
 * [Bayesian Programming on Github](https://en.wikipedia.org/wiki/Bayesian_programming)
 * [Full paper](http://science.sciencemag.org/content/sci/suppl/2015/12/09/350.6266.1332.DC1/Lake-SM.pdf)
+* [hadley/lineprof](http://adv-r.had.co.nz/Profiling.html#measure-perf)
 
 

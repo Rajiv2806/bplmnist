@@ -1,26 +1,15 @@
 # TODO
 
-## Presentation
+* Visual Turing Tests: Generate new random digits
+* more, better feature extraction
+* use relationship between strokes
+* potential to improve both the thinning and path generating algorithms and extract more and better features from them
 
-* include proportional for
-* deep learning v bpl: deep in data and computation, this shallow, but deep in programmatic knowledge, babies vs adults
-* performance digression [hadley/lineprof](http://adv-r.had.co.nz/Profiling.html#measure-perf)
-* description of "feature extraction process"
-* plots of performance
-* "edge" detection is done via this thinning process (link to thinning process?)
+## Comparisons with other models when trained on single data set
 
-## Room for improvement in program
-
-* determination of relationship between strokes
-* leverage 2-d nature of pixels, e.g. not just present or not present but may be useful in edge detection
-
-## Comparisons with other methods trained on single training set
-
-* compare with tangent distance
-* knn
+* knn with l1, l2, tangent distance
 * multinom / nnet
 
 ## Code
 
-* update simulations to use whole data set and randomize training set
 * use assertthat

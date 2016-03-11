@@ -15,7 +15,7 @@ iter <- 1
 while (iter < ntests) {
   print(paste0('starting test: ', iter))
   # Select a random subset of digits
-  rand.idcs <- sample(1:nrow(binary.digits),100)
+  rand.idcs <- sample(1:nrow(binary.digits))
   # shuffle the skeletons so we get a new training and test set for this iteration
   digit.skeletons <- all.digit.skeletons[rand.idcs]
 
@@ -36,6 +36,7 @@ while (iter < ntests) {
 
   (results <- predict.mnist(train.objects, test.set, set.length = 2))
   accuracy <- results$accuracy
+  print(paste0('Accuracy: ', accuracy))
   apriori.test.probs <- results$apriori.test.probs
   accuracies[iter] <- accuracy
 
@@ -50,3 +51,19 @@ while (iter < ntests) {
   iter <- iter + 1
 }
 
+mean(accuracies)
+mean(random.accuracies)
+
+simdata <- cbind(accuracies, random.accuracies)
+colnames(simdata) <- c('accuracy.algorithm','accuracy.random')
+ts <- as.numeric(Sys.time)
+filename <- paste0(ts, 'binary-sims.csv')
+write.csv(simdata, filename, row.names = FALSE)
+
+# generate a plot of the results
+simresults <- read.csv(filename)
+
+png('binarysims.png')
+plot(simresults[,'accuracy.random'], ylim = c(0,1), xlim = c(0,100), col = 'red', type = 'l')
+lines(simresults[,'accuracy.algorithm'], col = 'blue')
+dev.off()
