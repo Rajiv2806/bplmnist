@@ -32,6 +32,7 @@ The MNIST dataset do not come with motor data so in what follows a "trajectory" 
 ## The process is as follows:
 
 **1. Create skeleton:** The original image is whittled down to a "one-pixel" skeleton
+
 **2. Generate directed path:** Simulate trajectory using a heuristics-motivated path generating algorithm.
 
 These extracted features enable both new integer generation and integer prediction on test examples. Here we focus on the latter ( mostly because I thought it was more interesting).
@@ -77,7 +78,7 @@ train.idcs <- training.collection$train.idcs
 
 ### Everything else is in the test set
 
-The size of the test set is $n-10$
+The size of the test set is `n-10`
 
 ```{r}
 # Collect the test set
