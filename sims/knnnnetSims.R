@@ -76,7 +76,7 @@ while (iter <= ntests) {
 colnames(accuracies.mat) <- c('knn', 'nnet1', 'nnet2', 'nnet3')
 write.csv(accuracies.mat, '~/Box Sync/abarciausksas/myfiles/bplmnist/data/othermodelssims.csv', row.names = FALSE)
 
-png('others.png')
+png('~/Box Sync/abarciausksas/myfiles/bplmnist/others.png')
 plot(accuracies.mat[,'knn'], ylim = c(0,1), xlim = c(0,100), col = 'cadetblue3', type = 'l', ylab = '')
 lines(accuracies.mat[,'nnet1'], col = 'aquamarine2')
 lines(accuracies.mat[,'nnet2'], col = 'aquamarine3')
